@@ -1,0 +1,10 @@
+.chessboard-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .game-options {
+    margin-bottom: 20px;
+  }
+  
