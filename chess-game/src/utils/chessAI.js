@@ -1,8 +1,5 @@
-// Import Chess.js and Stockfish
-import Chess from "chess.js";
-import Stockfish from "stockfish";
-
-const stockfish = Stockfish();
+// Import Chess.js
+import { Chess } from "chess.js";
 
 // Create a new Chess game if none is provided
 const getGameInstance = (game) => game || new Chess();
@@ -83,20 +80,4 @@ export const getBestMove = (game, depth = 2) => {
   }
 
   return bestMove || getRandomMove(chess); // Fallback to random move
-};
-
-// Use Stockfish to get AI move (asynchronous)
-export const getStockfishMove = (game, callback) => {
-  const chess = getGameInstance(game);
-  
-  stockfish.postMessage("uci");
-  stockfish.postMessage(`position fen ${chess.fen()}`);
-  stockfish.postMessage("go depth 10");
-
-  stockfish.onmessage = (event) => {
-    if (event && event.startsWith("bestmove")) {
-      const move = event.split(" ")[1];
-      callback(move);
-    }
-  };
 };

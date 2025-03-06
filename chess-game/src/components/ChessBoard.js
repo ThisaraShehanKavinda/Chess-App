@@ -1,9 +1,10 @@
-import Chess from "chess.js";
+import { Chess } from "chess.js";
 import React, { useState } from "react";
 import { Chessboard } from "react-chessboard";
 import { FaSpinner } from "react-icons/fa"; // For loading spinner icon
 import { animated, useSpring } from "react-spring";
-import { getBestMove, getRandomMove, getStockfishMove } from "../utils/chessAI";
+import { getBestMove, getRandomMove } from "../utils/chessAI";
+import "./ChessBoard.css"; // Import the CSS file
 
 const ChessBoard = ({ gameMode }) => {
   const [game, setGame] = useState(new Chess());
@@ -43,11 +44,7 @@ const ChessBoard = ({ gameMode }) => {
     setIsAiMoving(true); // Set AI to moving state
     let move;
 
-    if (aiType === "stockfish") {
-      getStockfishMove(game, (move) => {
-        animateAIMove(move);
-      });
-    } else if (aiType === "random") {
+    if (aiType === "random") {
       move = getRandomMove(game);
       animateAIMove(move);
     } else {
@@ -57,6 +54,12 @@ const ChessBoard = ({ gameMode }) => {
   };
 
   const animateAIMove = (move) => {
+    // Check if move and move.from/move.to are valid
+    if (!move || !move.from || !move.to) {
+      console.error("Invalid move:", move); // Log the invalid move
+      return;
+    }
+
     setAiMoveDetails({
       fromSquare: getPositionFromSquare(move.from),
       toSquare: getPositionFromSquare(move.to),
@@ -68,7 +71,14 @@ const ChessBoard = ({ gameMode }) => {
     setIsAiMoving(false); // Reset AI moving state
   };
 
+  // Update this function to validate square input
   const getPositionFromSquare = (square) => {
+    // Check if square is valid
+    if (!square || square.length < 2) {
+      console.error("Invalid square:", square); // Log invalid square input
+      return { x: 0, y: 0 }; // Default position if the square is invalid
+    }
+
     const file = square.charAt(0); // 'a' to 'h'
     const rank = square.charAt(1); // '1' to '8'
 
@@ -86,12 +96,14 @@ const ChessBoard = ({ gameMode }) => {
 
   return (
     <div className="chessboard-container">
-      <h2>
-        Chess Game: {gameMode === "player-vs-computer" ? "Player vs Computer" : "Player vs Player"}
-      </h2>
+      <div className="header">
+        <h2>
+          Chess Game: {gameMode === "player-vs-computer" ? "Player vs Computer" : "Player vs Player"}
+        </h2>
+      </div>
 
       {gameMode === "player-vs-computer" && (
-        <div>
+        <div className="ai-options">
           <label htmlFor="ai-select">Select AI Difficulty: </label>
           <select
             id="ai-select"
@@ -106,19 +118,19 @@ const ChessBoard = ({ gameMode }) => {
       )}
 
       {/* Move history display */}
-      <div>
+      <div className="move-history">
         <h3>Move History:</h3>
         <ul>
           {moveHistory.map((move, index) => (
-            <li key={index}>
-              {move.san}
-            </li>
+            <li key={index}>{move.san}</li>
           ))}
         </ul>
       </div>
 
       {/* Reset Button */}
-      <button onClick={resetGame}>Reset Game</button>
+      <button className="reset-button" onClick={resetGame}>
+        Reset Game
+      </button>
 
       {/* Show loading spinner if AI is moving */}
       {isAiMoving && (
@@ -129,13 +141,14 @@ const ChessBoard = ({ gameMode }) => {
       )}
 
       {/* Chessboard */}
-      <Chessboard position={game.fen()} onPieceDrop={onDrop} />
+      <div className="chessboard">
+        <Chessboard position={game.fen()} onPieceDrop={onDrop} />
+      </div>
 
       {/* AI Move Animation */}
       {aiMoveDetails && (
-        <animated.div style={moveAnimation}>
-          <div className="ai-move-animation">
-            {/* Custom UI for the AI move animation */}
+        <animated.div className="ai-move-animation" style={moveAnimation}>
+          <div>
             <p>AI is making a move...</p>
           </div>
         </animated.div>

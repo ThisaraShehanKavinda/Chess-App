@@ -1,0 +1,74 @@
+/* src/components/GameOptions.css */
+
+.game-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    background-color: #f4f7fb;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .option-section {
+    margin-bottom: 30px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .game-button, .ai-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 30px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 180px;
+  }
+  
+  .game-button:hover, .ai-button:hover {
+    background-color: #45a049;
+  }
+  
+  .game-button:focus, .ai-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.5);
+  }
+  
+  .game-button:active, .ai-button:active {
+    background-color: #388e3c;
+  }
+  
+  @media (max-width: 600px) {
+    .game-options {
+      padding: 20px;
+    }
+  
+    .button-container {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .game-button, .ai-button {
+      min-width: 100%;
+    }
+  }
+  

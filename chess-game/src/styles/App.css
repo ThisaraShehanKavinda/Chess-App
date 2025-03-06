@@ -1,30 +1,58 @@
+/* App Container */
 .app-container {
-    text-align: center;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f4f7f6; /* Soft background for the app */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
     padding: 2rem;
-    font-family: "Comic Sans MS", cursive;
-    background-color: #f4f4f4;
   }
   
-  h1 {
+  /* Heading Style */
+  .app-title {
     font-size: 3rem;
-    color: #333;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    letter-spacing: 2px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
   }
   
-  button {
-    padding: 10px 20px;
+  /* Game Options Container */
+  .game-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  /* Game Mode Buttons */
+  .game-options button {
+    padding: 15px 25px;
     margin: 10px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    border: none;
-    border-radius: 10px;
-    background-color: #ff6347;
+    font-size: 1.1rem;
+    background-color: #3498db;
     color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
   }
   
-  button:hover {
-    background-color: #ff4500;
+  .game-options button:hover {
+    background-color: #2980b9;
+    transform: scale(1.05); /* Slight grow effect on hover */
   }
   
+  .game-options button:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.3); /* Focus effect */
+  }
+  
+  /* Chessboard Container */
   .chessboard-container {
     display: flex;
     flex-direction: column;
@@ -32,35 +60,71 @@
     justify-content: center;
   }
   
+  /* Loading Spinner */
   .loading-spinner {
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 18px;
     margin-top: 20px;
+    color: #7f8c8d;
   }
   
+  /* Spinner Icon Animation */
   .spinner-icon {
     animation: spin 1s linear infinite;
     margin-right: 10px;
   }
   
   @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
   
+  /* AI Move Animation */
   .ai-move-animation {
     position: absolute;
     z-index: 10;
-    opacity: 0.8;
-    background-color: rgba(255, 255, 255, 0.7);
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 14px;
+    opacity: 0.9;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 15px 25px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #2c3e50;
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: opacity 0.3s ease-in-out;
+  }
+  
+  /* Media Query for Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .app-container {
+      padding: 1rem;
+    }
+  
+    .app-title {
+      font-size: 2.5rem;
+    }
+  
+    .game-options button {
+      padding: 12px 20px;
+      font-size: 1rem;
+    }
+  
+    .loading-spinner {
+      font-size: 16px;
+    }
+  
+    .ai-move-animation {
+      font-size: 14px;
+      padding: 10px 20px;
+    }
   }
   
